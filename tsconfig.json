@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+		"module": "esnext",
+		"target": "ES2017",
+		"lib": ["es2015", "dom", "es2020.string"],
+		"baseUrl": ".",
+		"paths": {
+			"models/*": ["sources/models/*"],
+			"views/*": ["sources/views/*"],
+			"webix-jet": ["node_modules/webix-jet"]
+		},
+		"sourceMap": false,
+		"moduleResolution": "node",
+		"experimentalDecorators": true
+	},
+	"include": [
+		"sources/**/*.ts",
+	]
+}
