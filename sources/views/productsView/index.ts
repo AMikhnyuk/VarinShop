@@ -1,6 +1,6 @@
 import BaseView from "views/baseView";
 import { actionTypes } from "../../enums/actionTypes";
-import { IBaseData } from "sources/data/interfaces";
+import { IBaseData, IProductItem } from "sources/data/interfaces";
 
 export default class ProductsView extends BaseView {
   public config(): webix.ui.layoutConfig {
@@ -13,6 +13,7 @@ export default class ProductsView extends BaseView {
           localId: "productsView:productsDatatable",
           gravity: 2,
           columns: this._getProductsTableColumns(),
+          onClick: this._getOnClickConfig(),
         },
       ],
     };
@@ -27,7 +28,7 @@ export default class ProductsView extends BaseView {
       {
         id: "image",
         header: "Image",
-        width: 100,
+        width: 150,
         template:
           "<div class='image'><img class='image_content' src='#image#'></div>",
       },
@@ -38,13 +39,12 @@ export default class ProductsView extends BaseView {
         adjust: true,
         fillspace: true,
       },
-      { id: "price", header: "Price", adjust: true },
-      { id: "rating", header: "Rating", adjust: true },
+      { id: "price", header: "Price", width: 100 },
+      { id: "rating", header: "Rating", width: 100 },
       {
         id: "amount",
         header: "Amount",
-        width: 300,
-        template: "{common.counter()}",
+        template: "<div style='width:120px''>{common.counter()}</div>",
         adjust: true,
       },
       {
@@ -54,5 +54,30 @@ export default class ProductsView extends BaseView {
         template: '<div class="buyButton" style="cursor:pointer;">BUY</div>',
       },
     ];
+  }
+  private _getOnClickConfig() {
+    return {
+      webix_inp_counter_prev(e, id: { column: string; row: string }): void {
+        var item = this.getItem(id.row);
+        item[id.column] = (item[id.column] || 1) - 1;
+        this.updateItem(id.row);
+      },
+      webix_inp_counter_next(e, id: { column: string; row: string }): void {
+        var item = this.getItem(id.row);
+        item[id.column] = 1 + item[id.column] || 2;
+        this.updateItem(id.row);
+      },
+      buyButton(e, id: { column: string; row: string }): void {
+        const BaseView: BaseView = this.$scope.getParentView();
+        const clickedItem: IProductItem = this.getItem(id.row);
+        BaseView.bagButton.updateBagCount(+clickedItem.amount || 1);
+
+        webix.message(
+          `${clickedItem.amount || 1} ${clickedItem.company} ${
+            clickedItem.model
+          } added to your bag`
+        );
+      },
+    };
   }
 }

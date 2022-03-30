@@ -8,26 +8,25 @@ webix.protoUI(
     name: "productsDatatable",
     defaults: {
       type: {
-        height: 200,
+        counter: (obj, common, value, column, index) => {
+          let html =
+            "<div class='webix_el_group' style='width:80px; height:32px;'>";
+          html +=
+            "<button type='button' class='webix_inp_counter_prev' tabindex='-1' >-</button>";
+          html += `<input type='text' readonly class='webix_inp_counter_value' style='height:28px;' value="${
+            value || "1"
+          }"></input>`;
+          html +=
+            "<button type='button' class='webix_inp_counter_next' tabindex='-1'>+</button></div>";
+          return html;
+        },
       },
     },
     $init(config: webix.ui.datatableConfig) {
       this.$ready.unshift(() => this._viewCheckIn());
       config.on = {
         onItemDblClick: this._onItemDblClick,
-        onItemClick: this._onItemClick,
       };
-    },
-    _onItemClick(item: { column: string; row: string }) {
-      if (item.column === "buy") {
-        const BaseView: BaseView = this.$scope.getParentView();
-        const clickedItem: IProductItem = this.getItem(item.row);
-        BaseView.bagButton.updateBagCount(1);
-
-        webix.message(
-          `${"1"} ${clickedItem.company} ${clickedItem.model} added to your bag`
-        );
-      }
     },
     _createProductWindowAndShow(windowHead: string) {
       this.productPopup = webix
@@ -52,6 +51,7 @@ webix.protoUI(
       const dataWithHeight = this._getDatatableDataWithHeight(data, 100);
       this.parse(dataWithHeight);
     },
+
     _getDatatableDataWithHeight(
       data: Array<IProductItem>,
       height: number
@@ -62,10 +62,14 @@ webix.protoUI(
       });
       return copiedData;
     },
-    _onItemDblClick(clickedProduct: { row: string }) {
-      const clickedProductItem: IProductItem = this.getItem(clickedProduct.row);
-      const windowHead: string = `${clickedProductItem.company} ${clickedProductItem.model}`;
-      this._createProductWindowAndShow(windowHead);
+    _onItemDblClick(clickedProduct: { row: string; column: string }) {
+      if (clickedProduct.column !== "amount") {
+        const clickedProductItem: IProductItem = this.getItem(
+          clickedProduct.row
+        );
+        const windowHead: string = `${clickedProductItem.company} ${clickedProductItem.model}`;
+        this._createProductWindowAndShow(windowHead);
+      }
     },
     _viewCheckIn(): void {
       const BaseView: BaseView = this.$scope;
