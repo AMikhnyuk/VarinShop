@@ -4,6 +4,7 @@ type statusType = "In progress" | "Completed" | "Declined";
 
 export interface IProductItem {
   $height?: number;
+  name?: string;
   amount: number | string;
   image?: string;
   id: string;

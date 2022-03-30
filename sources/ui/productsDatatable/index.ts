@@ -28,16 +28,21 @@ webix.protoUI(
         onItemDblClick: this._onItemDblClick,
       };
     },
-    _createProductWindowAndShow(windowHead: string) {
+    _createProductWindowAndShow(clickedProductItem: IProductItem) {
       this.productPopup = webix
         .ui({
           view: "window",
+          css: "productsWindow",
           modal: true,
           close: true,
-          head: windowHead,
+          width: 400,
+          heaght: 600,
+          head: clickedProductItem.name,
           position: "center",
           body: {
-            cols: [{ template: "Image" }, { template: "Info" }],
+            cols: this._getProductWindowCols(clickedProductItem),
+            padding: 20,
+            margin: 20,
           },
           on: {
             onHide() {
@@ -48,17 +53,37 @@ webix.protoUI(
         .show();
     },
     loadData(data: Array<IProductItem>): void {
-      const dataWithHeight = this._getDatatableDataWithHeight(data, 100);
-      this.parse(dataWithHeight);
+      const dataWithHeightAndName = this._getDatatableDataWithHeight(data, 100);
+      this.parse(dataWithHeightAndName);
     },
-
+    _getProductWindowCols(
+      clickedProductitem: IProductItem
+    ): Array<webix.ui.templateConfig> {
+      const { image, name, rating, price } = clickedProductitem;
+      return [
+        {
+          type: "clean",
+          template: `<img class="image" src="${image}">`,
+        },
+        {
+          type: "clean",
+          template: `<div class="info">
+          <div><strong>Name</strong>: ${name}</div>
+          <div><strong>Price</strong>: ${price}</div>
+          <div><strong>Rating</strong>: ${rating}</div>
+          </div>`,
+        },
+      ];
+    },
     _getDatatableDataWithHeight(
       data: Array<IProductItem>,
       height: number
     ): Array<IProductItem> {
       const copiedData: Array<IProductItem> = webix.copy(data);
       copiedData.map((item) => {
+        const { company, model } = item;
         item.$height = height;
+        item.name = `${company} ${model}`;
       });
       return copiedData;
     },
@@ -67,8 +92,7 @@ webix.protoUI(
         const clickedProductItem: IProductItem = this.getItem(
           clickedProduct.row
         );
-        const windowHead: string = `${clickedProductItem.company} ${clickedProductItem.model}`;
-        this._createProductWindowAndShow(windowHead);
+        this._createProductWindowAndShow(clickedProductItem);
       }
     },
     _viewCheckIn(): void {

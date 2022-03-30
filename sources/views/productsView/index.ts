@@ -11,7 +11,7 @@ export default class ProductsView extends BaseView {
           view: "productsDatatable",
           css: "productsDatatable",
           localId: "productsView:productsDatatable",
-          gravity: 2,
+          gravity: 4,
           columns: this._getProductsTableColumns(),
           onClick: this._getOnClickConfig(),
         },
@@ -34,13 +34,18 @@ export default class ProductsView extends BaseView {
       },
       {
         id: "name",
-        header: "Name",
+        header: [
+          "Name",
+          {
+            content: "textFilter",
+          },
+        ],
         template: "#company# #model#",
         adjust: true,
         fillspace: true,
       },
-      { id: "price", header: "Price", width: 100 },
-      { id: "rating", header: "Rating", width: 100 },
+      { id: "price", header: "Price", width: 150 },
+      { id: "rating", header: "Rating", width: 150 },
       {
         id: "amount",
         header: "Amount",
@@ -50,7 +55,7 @@ export default class ProductsView extends BaseView {
       {
         id: "buy",
         header: "Buy",
-        adjust: true,
+        width: 100,
         template: '<div class="buyButton" style="cursor:pointer;">BUY</div>',
       },
     ];
