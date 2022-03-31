@@ -56,7 +56,7 @@ export default class ProductsView extends BaseView {
         id: "buy",
         header: "Buy",
         width: 100,
-        template: '<div class="buyButton" style="cursor:pointer;">BUY</div>',
+        template: '<i class="webix_icon mdi mdi-cart buyButton" ></i>',
       },
     ];
   }

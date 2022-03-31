@@ -70,8 +70,18 @@ webix.protoUI(
           template: `<div class="info">
           <div><strong>Name</strong>: ${name}</div>
           <div><strong>Price</strong>: ${price}</div>
-          <div><strong>Rating</strong>: ${rating}</div>
+          <div><strong>Rating</strong>: ${rating} <i class="webix_icon mdi mdi-star-outline ratingButton"></i></div>
           </div>`,
+          onClick: {
+            ratingButton(event: PointerEvent) {
+              const ratingButton: HTMLElement = event.target as HTMLElement;
+              if (ratingButton.classList.contains("mdi-star-outline")) {
+                ratingButton.classList.replace("mdi-star-outline", "mdi-star");
+              } else if (ratingButton.classList.contains("mdi-star")) {
+                ratingButton.classList.replace("mdi-star", "mdi-star-outline");
+              }
+            },
+          },
         },
       ];
     },
