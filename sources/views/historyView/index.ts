@@ -37,7 +37,6 @@ export default class HistoryView extends BaseView {
         id: "amount",
         header: "Amount",
         width: 300,
-        template: "{common.counter()}",
         adjust: true,
       },
       { id: "address", header: "Address", adjust: true },

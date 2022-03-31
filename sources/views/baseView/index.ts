@@ -10,12 +10,16 @@ import { IBagButton } from "sources/ui/topToolbar/components/bagButton/interface
 import { IBaseData } from "sources/data/interfaces";
 import { IBaseService } from "sources/services/baseService/interfaces";
 import { IDatatableTotalCount } from "sources/ui/datatableTotalCount/interfaces";
+import { IGreetingsLabel } from "sources/ui/topToolbar/components/greeatingsLabel/interfaces";
+import { IAuthButton } from "sources/ui/topToolbar/components/authButton/interfaces";
 
 export default class BaseView extends JetView {
   productsDatatable: IProductsDatatable;
   productsTree: IProductsTree;
   bagButton: IBagButton;
+  greetingsLabel: IGreetingsLabel;
   datatableTotalCount: IDatatableTotalCount;
+  authButton: IAuthButton;
   public loadData(baseData: IBaseData) {
     const { productsData, bagData, historyData } = baseData;
     if (productsData) {

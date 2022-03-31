@@ -39,8 +39,14 @@ export interface IHistoryItem {
   orderDate: string;
   status: statusType;
 }
+export interface IUser {
+  login: string;
+  password: string;
+  name: string;
+}
 export interface IBaseData {
   productsData?: Array<IProductItem>;
   bagData?: Array<IBagItem>;
   historyData?: Array<IHistoryItem>;
+  user?: IUser;
 }

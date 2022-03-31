@@ -115,4 +115,9 @@ export default {
       status: "Completed",
     },
   ],
+  user: {
+    login: "amikhnuk@xbsoftware.by",
+    password: "admin",
+    name: "Sasha",
+  },
 };

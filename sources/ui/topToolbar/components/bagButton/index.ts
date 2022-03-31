@@ -7,9 +7,7 @@ webix.protoUI(
     name: "bagButton",
     defaults: {
       template({ count }) {
-        return `<div class="bagButton" style="cursor:pointer;">Bag(${
-          count || "0"
-        })</div>`;
+        return `<div class="bagButton item pointer">Bag(${count || "0"})</div>`;
       },
     },
     $init(config: webix.ui.templateConfig): void {

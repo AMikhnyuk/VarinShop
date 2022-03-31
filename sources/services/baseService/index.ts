@@ -4,7 +4,7 @@ import { actionTypes } from "../../enums/actionTypes";
 import { IBaseService } from "./interfaces";
 
 function getBaseData(actionType: actionTypes): IBaseData {
-  const { productsData, bagData, historyData } = BASEDATA as IBaseData;
+  const { productsData, bagData, historyData, user } = BASEDATA as IBaseData;
   switch (actionType) {
     case actionTypes.PRODUCTS:
       return { productsData };
@@ -12,6 +12,8 @@ function getBaseData(actionType: actionTypes): IBaseData {
       return { bagData };
     case actionTypes.HISTORY:
       return { historyData };
+    case actionTypes.TOP:
+      return { bagData, user };
   }
 }
 

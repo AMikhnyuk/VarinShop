@@ -1,9 +1,12 @@
 import { routes } from "../../enums/routes";
 import TopView from "views/topView";
-
+import "./style.scss";
 webix.protoUI(
   {
     name: "topToolbar",
+    defaults: {
+      padding: 10,
+    },
     $init(config: webix.ui.layoutConfig) {
       this.$ready.unshift(() => this._setLayout());
     },
@@ -11,7 +14,10 @@ webix.protoUI(
       this.cols_setter([
         this._getLogoTemplate(),
         {},
-        this._getUserGreetingsTemplate(),
+        {
+          view: "greetingsLabel",
+          type: "clean",
+        },
         {},
         this._getActionButtons(),
       ]);
@@ -21,7 +27,7 @@ webix.protoUI(
         view: "template",
         type: "clean",
         template({ logo }) {
-          return `<div class="logo">${logo || "Varin shop"}</div>`;
+          return `<div class="logo item pointer">${logo || "Varin shop"}</div>`;
         },
         onClick: {
           logo: (): void => {
@@ -31,27 +37,18 @@ webix.protoUI(
         },
       };
     },
-    _getUserGreetingsTemplate(): webix.ui.templateConfig {
-      return {
-        view: "template",
-        type: "clean",
-        template({ userName }) {
-          return `Hi, ${userName || "User"}!`;
-        },
-      };
-    },
     _getActionButtons() {
       return {
         type: "clean",
         cols: [
           {
-            template: "Login",
+            view: "authButton",
             type: "clean",
           },
           {},
           {
             type: "clean",
-            template: "History",
+            template: "<div class='item pointer'>History</div>",
           },
           {},
           {
