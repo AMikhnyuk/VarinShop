@@ -13,7 +13,7 @@ function getBaseData(actionType: actionTypes): IBaseData {
     case actionTypes.HISTORY:
       return { historyData };
     case actionTypes.TOP:
-      return { bagData, user };
+      return { bagData, user: null };
   }
 }
 

@@ -1,3 +1,7 @@
 export interface IAuthButton extends webix.ui.template {
-  updateLabel(isLoggined: boolean): void;
+  updateLabel(value: string): void;
+  config: IAuthButtonConfig;
+}
+export interface IAuthButtonConfig extends webix.ui.templateConfig {
+  authButtonType: string;
 }

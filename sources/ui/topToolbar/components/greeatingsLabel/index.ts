@@ -5,9 +5,11 @@ webix.protoUI(
     name: "greetingsLabel",
     defaults: {
       template({ name }) {
-        return `<div class="greetingsLabel item">Hello, ${
-          name || "User"
-        }</div>`;
+        if (name) {
+          return `<div class="greetingsLabel item">Hello, ${name}</div>`;
+        } else {
+          return "";
+        }
       },
     },
     $init(config: webix.ui.templateConfig): void {

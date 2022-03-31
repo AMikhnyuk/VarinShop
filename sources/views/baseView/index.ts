@@ -5,6 +5,8 @@ import "../../ui/topToolbar/index";
 import "../../ui/productsTree/index";
 import "../../ui/productsDatatable/index";
 import "../../ui/datatableTotalCount/index";
+import "../../ui/topToolbar/components/authButton/index";
+import "../../ui/topToolbar/components/greeatingsLabel/index";
 import { IProductsTree } from "../../ui/productsTree/interfaces";
 import { IBagButton } from "sources/ui/topToolbar/components/bagButton/interfaces";
 import { IBaseData } from "sources/data/interfaces";
