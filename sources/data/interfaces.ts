@@ -15,12 +15,17 @@ export interface IProductItem {
   rating: string;
 }
 export interface IBagItem {
+  $height?: number;
+  name?: string;
   id: string;
+  sum: string;
   company: string;
+  image: string;
   model: string;
   category: string;
   price: string;
   rating: string;
+  amount: string;
 }
 export interface IHistoryItem {
   id: string;

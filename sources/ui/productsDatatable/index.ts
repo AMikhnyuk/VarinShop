@@ -1,6 +1,6 @@
 import ProductsView from "views/productsView";
 import BaseView from "views/baseView";
-import { IProductItem } from "sources/data/interfaces";
+import { IBagItem, IProductItem } from "sources/data/interfaces";
 import "./style.scss";
 
 webix.protoUI(
@@ -52,7 +52,7 @@ webix.protoUI(
         })
         .show();
     },
-    loadData(data: Array<IProductItem>): void {
+    loadData(data: Array<IProductItem> | Array<IBagItem>): void {
       const dataWithHeightAndName = this._getDatatableDataWithHeight(data, 100);
       this.parse(dataWithHeightAndName);
     },
@@ -86,12 +86,13 @@ webix.protoUI(
       ];
     },
     _getDatatableDataWithHeight(
-      data: Array<IProductItem>,
+      data: Array<IProductItem> | Array<IBagItem>,
       height: number
     ): Array<IProductItem> {
-      const copiedData: Array<IProductItem> = webix.copy(data);
-      copiedData.map((item) => {
-        const { company, model } = item;
+      const copiedData: Array<IProductItem> | Array<IBagItem> =
+        webix.copy(data);
+      copiedData.map((item: IProductItem | IBagItem) => {
+        const { company, model, amount, price } = item;
         item.$height = height;
         item.name = `${company} ${model}`;
       });

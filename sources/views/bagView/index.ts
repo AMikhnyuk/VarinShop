@@ -1,4 +1,4 @@
-import { IBaseData } from "sources/data/interfaces";
+import { IBagItem, IBaseData } from "sources/data/interfaces";
 import { actionTypes } from "../../enums/actionTypes";
 import BaseView from "views/baseView";
 import { routes } from "../../enums/routes";
@@ -12,22 +12,31 @@ export default class BagView extends BaseView {
           rows: [
             {
               view: "productsDatatable",
+              css: "productsDatatable",
               localId: "productsView:productsDatatable",
 
               columns: this._getBagTableColumns(),
+              onClick: this._getDatatableOnClick(),
             },
             {
               view: "datatableTotalCount",
+              height: 50,
             },
             {
-              view: "button",
-              value: "Make order",
-              click: () => {
-                this.app.show(routes.MAKEORDERVIEW);
-              },
+              cols: [
+                {
+                  view: "button",
+                  value: "Make order",
+                  click: () => {
+                    this.app.show(routes.MAKEORDERVIEW);
+                  },
+                  width: 200,
+                },
+                {},
+              ],
             },
           ],
-          gravity: 2,
+          gravity: 4,
         },
       ],
     };
@@ -39,7 +48,13 @@ export default class BagView extends BaseView {
   }
   private _getBagTableColumns(): {}[] {
     return [
-      { id: "image", header: "Image", adjust: true },
+      {
+        id: "image",
+        header: "Image",
+        adjust: true,
+        template:
+          "<div class='image'><img class='image_content' src='#image#'></div>",
+      },
       {
         id: "name",
         header: "Name",
@@ -52,18 +67,30 @@ export default class BagView extends BaseView {
         id: "amount",
         header: "Amount",
         width: 300,
-        template: "{common.counter()}",
         adjust: true,
       },
-      { id: "price", header: "Price", adjust: true },
-      { id: "sum", header: "Sum", adjust: true },
+      { id: "price", header: "Price", width: 100 },
+      { id: "sum", header: "Sum", width: 100 },
       {
         id: "remove",
         header: "",
         adjust: true,
         template:
-          '<i class="webix_icon wxi-trash" style="cursor:pointer;"></i>',
+          '<i class="webix_icon wxi-trash trashButton" style="cursor:pointer;"></i>',
       },
     ];
+  }
+  private _getDatatableOnClick(): {} {
+    return {
+      trashButton(event: PointerEvent, item: { row: string; column: string }) {
+        this.remove(item.row);
+        const BagView: BagView = this.$scope;
+        const currentDatatableData: Array<IBagItem> = Object.values(
+          this.data.pull
+        );
+        BagView.datatableTotalCount.sumValuesAndSetCount(currentDatatableData);
+        return false;
+      },
+    };
   }
 }

@@ -15,7 +15,7 @@ webix.protoUI(
     sumValuesAndSetCount(bagData: Array<IBagItem>): void {
       let totalCount: number = 0;
       bagData.forEach((bagItem: IBagItem) => {
-        totalCount += +bagItem.price;
+        totalCount += +bagItem.sum;
       });
       this.setValues({ totalCount });
     },

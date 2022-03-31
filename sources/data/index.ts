@@ -64,27 +64,29 @@ export default {
   bagData: [
     {
       id: "1",
-      company: "Samsung",
-      model: "Galaxy S6 Edge+12",
+      image:
+        "https://content2.onliner.by/catalog/device/main/e2189f90f9088975c553ec33431fc186.jpeg",
+
+      company: "Apple",
+      amount: "2",
+      model: "iPhone 112",
       category: "Phones",
-      price: "420",
-      rating: "125",
+      price: "1920",
+      rating: "91",
+      sum: "3840",
     },
     {
       id: "2",
-      company: "Samsung",
-      model: "Galaxy S3",
+      image:
+        "https://content2.onliner.by/catalog/device/main/b9fefc8c8f96dbc21492792f3a1a502d.jpeg",
+
+      company: "Apple",
+      amount: "1",
+      model: "iPhone 13",
       category: "Phones",
-      price: "340",
-      rating: "84",
-    },
-    {
-      id: "3",
-      company: "Lenovo",
-      model: "K5",
-      category: "Phones",
-      price: "380",
-      rating: "68",
+      price: "2790",
+      rating: "91",
+      sum: "2790",
     },
   ],
   historyData: [
