@@ -14,14 +14,19 @@ export default class AuthView extends BaseView {
           isLogginedUser: false,
         },
         {
-          view: "form",
-          id: "authForm",
-          elements: [],
-          elementsConfig: {
-            labelWidth: 200,
-          },
+          cols: [
+            {},
+            {
+              view: "form",
+              id: "authForm",
+              elements: [],
+              elementsConfig: {
+                labelWidth: 200,
+              },
+            },
+            {},
+          ],
           paddingY: 20,
-          paddingX: 400,
         },
       ],
     };
@@ -36,11 +41,11 @@ export default class AuthView extends BaseView {
   private _updateAuthButton(authFormType: authFormTypes) {
     switch (authFormType) {
       case authFormTypes.LOGIN:
-        this.authButton.updateLabel("Login");
+        this.authButton.updateLabel("Register");
         this.authButton.config.authButtonType = authFormTypes.LOGIN;
         break;
       case authFormTypes.REGISTER:
-        this.authButton.updateLabel("Register");
+        this.authButton.updateLabel("Login");
         this.authButton.config.authButtonType = authFormTypes.REGISTER;
         break;
     }
@@ -72,6 +77,14 @@ export default class AuthView extends BaseView {
       view: "text",
       label: "Name",
     };
+    const rememberMe = {
+      view: "checkbox",
+      labelRight: "Remember Me",
+    };
+    const forgotPassword: webix.ui.templateConfig = {
+      type: "clean",
+      template: "<div>Forgot Your Password?</div>",
+    };
     const button = (value: string): webix.ui.buttonConfig => {
       return {
         view: "button",
@@ -94,7 +107,8 @@ export default class AuthView extends BaseView {
           email,
           password,
           confirmPassword,
-          { cols: [{}, button("Register")] },
+          rememberMe,
+          { cols: [button("Register"), forgotPassword] },
         ];
     }
   }
